@@ -1,0 +1,18 @@
+user:
+    - id
+    - firstname
+    - lastname
+    - email
+    - phone
+    - address
+    - picture
+    - gender
+    - password
+
+advert:
+    - price
+    - title
+    - description
+    - picture
+    - category
+    - sub-category
