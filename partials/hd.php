@@ -10,4 +10,4 @@ if (isset($_POST['btn_logout'])) {
     header('location:login.php');
 }
 
-var_dump($_SESSION);
+// var_dump($_SESSION);

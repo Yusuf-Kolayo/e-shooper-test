@@ -87,8 +87,8 @@
                 </div>
 
                 <div class="d-flex mt-2">
-                    <button class="btn btn-secondary">Clear</button>
-                    <button name="btn_login" class="btn btn-primary ml-auto">Submit</button>
+                    <button class="btn btn-secondary" type="reset">Clear</button>
+                    <button name="btn_login" type="submit" class="btn btn-primary ml-auto">Submit</button>
                 </div>
             </div>
      </div>
