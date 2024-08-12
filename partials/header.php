@@ -1,7 +1,3 @@
-<?php
-   // initializing the message variable
-   $msg = '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 

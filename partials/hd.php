@@ -10,4 +10,8 @@ if (isset($_POST['btn_logout'])) {
     header('location:login.php');
 }
 
-// var_dump($_SESSION);
+$user_id = $_SESSION['id'];
+
+
+// initializing the message variable
+$msg = '';

@@ -1,5 +1,7 @@
 <?php require 'partials/hd.php';
 
+
+
 if (count($_SESSION)>0) {
     if ($_SESSION['logged_in']!=true) {
          header('location:login.php');
@@ -7,9 +9,38 @@ if (count($_SESSION)>0) {
 } 
 
 
+
 if (isset($_POST['btn_change_dp'])) {
     var_dump($_POST);
     var_dump($_FILES);
+
+    $dp_name = $_FILES['new_dp']['name'];          // name of picture on your device
+    $dp_size = $_FILES['new_dp']['size'];          // size of the uploaded picture
+    $dp_type = $_FILES['new_dp']['type'];          // filetype of the uploaded pic
+    $dp_tmp_name = $_FILES['new_dp']['tmp_name'];  // temporary storage of the pic on server  
+
+    // Not allow non-approved picture formats
+    // Not allow any DP > 1MB
+    
+    $allowedFormats = ['image/png','image/jpeg','image/webp'];
+    // check if the file format is among the allowed ones declared above
+    if (in_array($dp_type, $allowedFormats)) {  
+         // check if the file size is less than or equal to 1MB
+        if ($dp_size <= 1048576) {    
+            // move the pic to final destination
+           $upload = move_uploaded_file($dp_tmp_name, 'display_pics/'.$dp_name);
+           if ($upload===true) {
+               $msg = 'Upload was sucessfull';
+           } else {
+               $msg = "Upload was'nt successful, pls try again ...";
+           }
+        } else {
+             $msg = 'File size too large! Expected size = less 1MB';
+        }
+    } else {
+        $msg = 'File format not allowed/supported!';
+    }
+
 }
 
 ?>
@@ -53,6 +84,12 @@ if (isset($_POST['btn_change_dp'])) {
     <div class="page-wrapper px-3 mt-3">
          <div class="row">
               <div class="col-md-8 mx-auto">
+                    <?php 
+                        // if there is a message, echo it
+                        if (strlen($msg)>0) { 
+                            echo '<div class="alert alert-primary mb-3">'.$msg.'</div>';
+                        }
+                    ?>   
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
@@ -109,11 +146,12 @@ if (isset($_POST['btn_change_dp'])) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Select Picture:</label>
+                        <label for="recipient-name" class="col-form-label">Select Picture</label>
                         <input type="file" name="new_dp" class="form-control" id="recipient-name">
                     </div> 
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" value="<?php echo $user_id ?>" name="user_id">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" name="btn_change_dp" class="btn btn-primary">Submit</button>
                 </div>
