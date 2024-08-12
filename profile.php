@@ -1,7 +1,7 @@
 <?php require 'partials/hd.php';
 
 
-
+// redirect users to login page if not authenticated yet
 if (count($_SESSION)>0) {
     if ($_SESSION['logged_in']!=true) {
          header('location:login.php');
@@ -30,6 +30,30 @@ if (isset($_POST['btn_change_dp'])) {
             // move the pic to final destination
            $upload = move_uploaded_file($dp_tmp_name, 'display_pics/'.$dp_name);
            if ($upload===true) {
+
+              
+                // get the user_id from session
+                $user_id = $_SESSION['id'];
+
+                // get the previous dp from the database
+                $query = "SELECT picture FROM users WHERE id = '$user_id'";
+                $result = mysqli_query($connection, $query);
+                $row = mysqli_fetch_assoc($result);
+                $prev_dp = $row['picture'];
+
+                // delete the previous dp from the server
+                if (is_writable('display_pics/'.$prev_dp)&&$prev_dp!='') {
+                    unlink('display_pics/'.$prev_dp);
+                }
+
+                // update the user's dp
+                $user_id = $_SESSION['id'];
+                $query = "UPDATE users SET picture = '$dp_name' WHERE id = '$user_id'";
+                $result = mysqli_query($connection, $query);
+
+                // overide the old picture in the session
+                $_SESSION['picture'] = $dp_name;
+
                $msg = 'Upload was sucessfull';
            } else {
                $msg = "Upload was'nt successful, pls try again ...";
@@ -42,6 +66,18 @@ if (isset($_POST['btn_change_dp'])) {
     }
 
 }
+
+
+
+$picture = $_SESSION['picture'];
+
+
+if (is_writable('display_pics/'.$picture)&&$picture!='') {
+    $picture_html = '<img src="display_pics/'.$picture.'" alt="" class="w-50 d-block mx-auto mt-4">'; 
+} else {
+    $picture_html = '<img src="img/avatar_dummy.png" alt="" class="w-50 d-block mx-auto mt-4">';   
+}
+
 
 ?>
 
@@ -93,7 +129,7 @@ if (isset($_POST['btn_change_dp'])) {
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card">
-                                <img src="img/avatar_dummy.png" alt="" class="w-50 d-block mx-auto mt-4">
+                                <?=$picture_html?>
                                 <div class="card-body text-center">
                                     Yinka Adeleke
                                 </div>
