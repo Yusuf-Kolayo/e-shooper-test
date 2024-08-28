@@ -1,17 +1,17 @@
 <?php require 'partials/hd.php'; ?>
 
-    <!-- Header Start  -->
-    <?php include 'partials/header.php' ?>
-    <!-- Header End  -->
+<!-- Header Start  -->
+<?php include 'partials/header.php' ?>
+<!-- Header End  -->
 
-    <!-- Topbar Start -->
-    <?php include 'partials/top_bar.php' ?>
-    <!-- Topbar End -->
+<!-- Topbar Start -->
+<?php include 'partials/top_bar.php' ?>
+<!-- Topbar End -->
 
 
-    <!-- Navbar Start -->
-    <?php include 'partials/nav_bar.php' ?>
-    <!-- Navbar End -->
+<!-- Navbar Start -->
+<?php include 'partials/nav_bar.php' ?>
+<!-- Navbar End -->
 
 
     <!-- Featured Start -->

@@ -54,11 +54,14 @@
                            if (isset($_SESSION['logged_in'])) {
                                 if ($_SESSION['logged_in']==true) {
                                     echo '<form class="d-inline" action="" method="post">
+                                        <a href="create-product.php" class="btn btn-outline-dark">New Product</a>
                                          <a href="profile.php" class="btn btn-outline-dark">Profile</a>
                                          <button name="btn_logout" type="submit" class="btn btn-outline-dark">Log Out</button>
                                     </form>';
                                 } else {
-                                echo ' <a href="login.php" class="nav-item nav-link">Login</a>
+                                echo ' 
+                               
+                                <a href="login.php" class="nav-item nav-link">Login</a>
                                 <a href="register.php" class="nav-item nav-link">Register</a>';
                                 }
                            } else {
